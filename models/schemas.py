@@ -32,3 +32,13 @@ class EmployeeSchema(ma.Schema):
 
 employee_schema = EmployeeSchema()
 employees_schema = EmployeeSchema(many=True)
+
+class OrderSchema(ma.Schema):
+    id = fields.Integer(required=False)
+    customer_id = fields.Integer(required=True)
+    product_id = fields.Integer(required=True)
+    quantity = fields.Integer(required=True)
+    total_price = fields.String(required=True)
+
+order_schema = OrderSchema()
+orders_schema = OrderSchema(many = True)
