@@ -1,6 +1,5 @@
 from flask import Blueprint
 from controllers.customerController import save, find_all
-from controllers.productController import save, find_all
 
 
 customer_blueprint = Blueprint('customer_bp', __name__)
