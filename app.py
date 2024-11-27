@@ -1,9 +1,7 @@
 from flask import Flask
 from models.models import db
-from routes.routes import customer_blueprint
+from routes.routes import customer_blueprint, product_blueprint
 from schema import ma
-
-
 
 
 def create_app(config_name):
@@ -17,6 +15,7 @@ def create_app(config_name):
 
 def blue_print_config(app):
     app.register_blueprint(customer_blueprint, url_prefix='/customers')
+    app.register_blueprint(product_blueprint, url_prefix='/products')
 
 
 if __name__ == '__main__':
