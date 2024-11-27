@@ -13,6 +13,6 @@ def save(employee_data):
         return new_employee
 
 def find_all():
-    query = select(Employee)         #why doesn't this one need "with session"
+    query = select(Employee)              #why doesn't this one need "with session"
     employees = db.session.execute(query).scalars().all()
     return employees

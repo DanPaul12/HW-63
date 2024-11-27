@@ -1,4 +1,4 @@
-from models.schemas import employee_schema
+from models.schemas import employee_schema, employees_schema
 from models.models import Employee
 from services import employeeService
 from flask import request, jsonify
@@ -12,8 +12,7 @@ def save():
 
 def find_all():
     employees = employeeService.find_all()
-    return employee_schema.jsonify(employees), 200
-
+    return employees_schema.jsonify(employees), 200
 
 
 #why useful to distinguish controllers from services?
