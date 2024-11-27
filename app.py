@@ -13,6 +13,8 @@ def create_app(config_name):
     db.init_app(app)
     ma.init_app(app)
 
+    return app
+
 def blue_print_config(app):
     app.register_blueprint(customer_blueprint, url_prefix='/customers')
 
