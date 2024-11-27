@@ -14,7 +14,7 @@ def create_app(config_name):
 
     app.config.from_object(f'config.{config_name}')
     db.init_app(app)
-    ma.init_app(app)            #what do these init_app funcs do
+    ma.init_app(app)            
     limiter.init_app(app)
 
     return app

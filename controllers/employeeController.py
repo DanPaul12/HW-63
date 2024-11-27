@@ -8,11 +8,8 @@ def save():
     save_employee = employeeService.save(new_employee)
     return employee_schema.jsonify(save_employee), 201
 
-#best way to do error handling here and why
 
 def find_all():
     employees = employeeService.find_all()
     return employees_schema.jsonify(employees), 200
 
-
-#why useful to distinguish controllers from services?

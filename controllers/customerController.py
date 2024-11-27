@@ -6,7 +6,7 @@ from flask import request, jsonify
 def save():
     try:
         new_customer = customer_schema.load(request.json)
-    except ValidationError as err:             #what is a validation error
+    except ValidationError as err:             
         return jsonify(err.messages), 404
     
     customer_save = customerService.save(new_customer)
