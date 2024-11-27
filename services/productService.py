@@ -14,5 +14,5 @@ def save(product_data):
     
 def find_all():
     query = select(Product)
-    products = db.session.execute(query).scalars().all()
+    products = db.session.execute(query).scalars().all()  #what is scalars
     return products

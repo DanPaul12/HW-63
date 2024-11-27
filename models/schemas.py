@@ -42,3 +42,12 @@ class OrderSchema(ma.Schema):
 
 order_schema = OrderSchema()
 orders_schema = OrderSchema(many = True)
+
+class ProductionSchema(ma.Schema):
+    id = fields.Integer(required=False)
+    product_id = fields.Integer(required=True)
+    product_quantity = fields.Integer(required=True)
+    date_produced = fields.Date(required=True)
+
+production_schema =ProductionSchema()
+productions_schema =ProductionSchema(many = True)
