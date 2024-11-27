@@ -8,15 +8,15 @@ class CustomerSchema(ma.Schema):
     phone = fields.String(required=True)
 
     class Meta:
-        fields = ('id', 'name', 'email', 'phone' )
+        fields = ('id', 'name', 'email', 'phone' )       #what is this for
 
 customer_schema = CustomerSchema()
 customers_schema = CustomerSchema(many = True)
 
 class ProductSchema(ma.Schema):
     id = fields.Integer(required=False)
-    name = fields.String(required=True, validate=validate.Length(min=1))
-    price = fields.String(required=True, validate=validate.Range(min=0))
+    name = fields.String(required=True)
+    price = fields.String(required=True)
 
 class ProductSchemaID(ma.Schema):
     id = fields.Integer(required=True)
@@ -24,3 +24,11 @@ class ProductSchemaID(ma.Schema):
 
 product_schema = ProductSchema()
 products_schema = ProductSchema(many = True)
+
+class EmployeeSchema(ma.Schema):
+    id = fields.Integer(required=False)
+    name = fields.String(required=True)
+    position = fields.String(required=True)
+
+employee_schema = EmployeeSchema()
+employees_schema = EmployeeSchema(many=True)
