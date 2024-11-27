@@ -3,6 +3,7 @@ from models.models import db
 from routes.customerBP import customer_blueprint
 from routes.productBP import product_blueprint
 from routes.employeeBP import employee_blueprint
+from routes.orderBP import order_blueprint
 from schema import ma
 
 
@@ -19,6 +20,7 @@ def blue_print_config(app):
     app.register_blueprint(customer_blueprint, url_prefix='/customers')
     app.register_blueprint(product_blueprint, url_prefix='/products')
     app.register_blueprint(employee_blueprint, url_prefix='/employees')
+    app.register_blueprint(order_blueprint, url_prefix='/orders')
 
 
 
