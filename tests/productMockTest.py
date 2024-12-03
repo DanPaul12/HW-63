@@ -12,3 +12,10 @@ class TestSaveProduct(unittest.TestCase):
         mock_product = MagicMock()
         mock_product.name = faker.name()
         mock_product.price = faker.float()
+        data = {'name': mock_product.name, 'price': mock_product.price}
+        response = save(data)
+        self.assertEqual(response, mock_product)
+
+
+if __name__ == '__main__':
+    unittest.main()
