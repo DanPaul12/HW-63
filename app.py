@@ -8,7 +8,16 @@ from routes.productionBP import production_blueprint
 from routes.userBP import user_blueprint
 from limiter import limiter
 from schema import ma
+from flask_swagger_ui import get_swaggerui_blueprint
 
+SWAGGER_URL = 'api/docs'
+API_URL = '/static/swagger.yaml'
+
+swaggerui_blueprint = get_swaggerui_blueprint(
+    SWAGGER_URL,
+    API_URL,
+    config={'app_name': 'E-Commerce API'}
+)
 
 def create_app(config_name):
     app = Flask(__name__)
@@ -27,6 +36,7 @@ def blue_print_config(app):
     app.register_blueprint(order_blueprint, url_prefix='/orders')
     app.register_blueprint(production_blueprint, url_prefix='/productions')
     app.register_blueprint(user_blueprint, url_prefix='/users')
+    app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
 
 def configure_rate_limit():
     limiter.limit('5 per day')(customer_blueprint)
