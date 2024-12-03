@@ -1,6 +1,8 @@
 from models.models import User
 from sqlalchemy.orm import Session
 from models.models import db
+from models.schemas import users_schema
+from sqlalchemy import select
 
 def save(user_data):
     with Session(db.engine) as session:
@@ -10,3 +12,8 @@ def save(user_data):
             session.commit()
         session.refresh(new_user)
         return new_user
+    
+def find_all():
+    query = select(User)
+    users = db.session.execute(query).scalars().all()
+    return users
