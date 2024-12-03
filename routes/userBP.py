@@ -1,6 +1,7 @@
 from flask import Blueprint
-from controllers.userController import save, find_all
+from controllers.userController import save, find_all, login_user
 
 user_blueprint = Blueprint('user_bp', __name__)
 user_blueprint.route('/', methods=['POST'])(save)
 user_blueprint.route('/', methods=['GET'])(find_all)
+user_blueprint.route('/login', methods=['POST'])(login_user)
