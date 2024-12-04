@@ -10,6 +10,11 @@ consumes:
   - 'application/json'
 produces:
   - 'application/json'
+securityDefinitions:
+  bearerAuth:
+    type: apiKey
+    name: Authorization
+    in: header
 paths: 
   /accounts/login:
     post:
