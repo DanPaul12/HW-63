@@ -80,11 +80,18 @@ paths:
               value: 
                 status: 'error'
                 message: 'user does not have the required role'
-    save:
+    post:
       tags:
         - customers
       summary: 'Save a Customer'
       description: 'Save one customer to database'
+      parameters:
+        - in: 'body'
+          name: 'body'
+          description: 'Data for new Customer'
+          required: true
+          schema:
+            $ref: '#/definitions/Customer'
       responses:
         200:
           description: 'Successful Response'
@@ -110,6 +117,174 @@ paths:
               value: 
                 status: 'error'
                 message: 'user does not have the required role'
+  /products:
+    get:
+      tags:
+        - products
+      summary: 'Get All Products'
+      description: 'Retrieve a list of all products'
+      responses:
+        200:
+          description: 'Successful Response'
+          schema:
+            type: 'array'
+            items:
+              $ref: '#/definitions/Product'
+        401:
+          description: 'Unauthorized'
+          schema:
+            $ref: '#/definitions/Error'
+          examples:
+            application/json:
+              value:
+                status: 'error'
+                message: 'token is missing | token expired | invalid token'
+        403:
+          description: 'Forbidden'
+          schema: 
+            $ref: '#/definitions/Error'
+          examples:
+            application/json:
+              value: 
+                status: 'error'
+                message: 'user does not have the required role'
+    post:
+      tags:
+        - products
+      summary: 'Save a product to database'
+      description: 'Save one product to database'
+      parameters:
+        - in: 'body'
+          name: 'body'
+          description: 'Data for Product'
+          required: true
+          schema:
+            $ref: '#/definitions/Product'
+      responses:
+        200:
+          description: 'Successful Response'
+          schema:
+            type: 'array'
+            items:
+              $ref: '#/definitions/Product'
+        401:
+          description: 'Unauthorized'
+          schema:
+            $ref: '#/definitions/Error'
+          examples:
+            application/json:
+              value:
+                status: 'error'
+                message: 'token is missing | token expired | invalid token'
+        403:
+          description: 'Forbidden'
+          schema: 
+            $ref: '#/definitions/Error'
+          examples:
+            application/json:
+              value: 
+                status: 'error'
+                message: 'user does not have the required role'
+  /employees:
+    get:
+      tags:
+        - employees
+      summary: 'Get All Employees'
+      description: 'Retrieve a list of all employees'
+      responses:
+        200:
+          description: 'Successful Response'
+          schema:
+            type: 'array'
+            items:
+              $ref: '#/definitions/Employee'
+        400:
+          description: 'Bad Request'
+          schema:
+            $ref: '#/definitions/Error'
+          examples:
+            application/json:
+              value:
+                status: 'error'
+                message: 'Bad Request'
+    post:
+      tags:
+        - employees
+      summary: 'Save an Employee to database'
+      description: 'Save one employee to database'
+      parameters:
+        - in: 'body'
+          name: 'body'
+          description: 'Data for Employee'
+          required: true
+          schema:
+            $ref: '#/definitions/Employee'
+      responses:
+        200:
+          description: 'Successful Response'
+          schema:
+            type: 'array'
+            items:
+              $ref: '#/definitions/Product'
+        400:
+          description: 'Invalid Input'
+          schema:
+            $ref: '#/definitions/Error'
+          examples:
+            application/json:
+              value:
+                status: 'error'
+                message: 'Invalid Input'
+  /orders:
+    get:
+      tags:
+        - orders
+      summary: 'Get All Orders'
+      description: 'Retrieve a list of all orders'
+      responses:
+        200:
+          description: 'Successful Response'
+          schema:
+            type: 'array'
+            items:
+              $ref: '#/definitions/Order'
+        400:
+          description: 'Bad Request'
+          schema:
+            $ref: '#/definitions/Error'
+          examples:
+            application/json:
+              value:
+                status: 'error'
+                message: 'Bad Request'
+    post:
+      tags:
+        - orders
+      summary: 'Save an Order to database'
+      description: 'Save one Order to database'
+      parameters:
+        - in: 'body'
+          name: 'body'
+          description: 'Data for Order'
+          required: true
+          schema:
+            $ref: '#/definitions/Order'
+      responses:
+        200:
+          description: 'Successful Response'
+          schema:
+            type: 'array'
+            items:
+              $ref: '#/definitions/Order'
+        400:
+          description: 'Invalid Input'
+          schema:
+            $ref: '#/definitions/Error'
+          examples:
+            application/json:
+              value:
+                status: 'error'
+                message: 'Invalid Input'
       security: 
         - bearerAuth: []
 definitions: 
@@ -179,19 +354,75 @@ definitions:
     properties:
       username:
         type: 'string'
-        description: 'Customer name'
+        description: 'User username'
       password:
         type: 'string'
-        description: 'Customer email'
+        description: 'User password'
       role:
         type: 'string'
-        description: 'Customer phoone number'
+        description: 'User role'
+      id:
+        type: 'integer'
+        format: 'int64'
+        description: 'Customer unique id'
+    required:
+      - 'username'
+      - 'password'
+      - 'role'
+  Product:
+    type: 'object'
+    properties:
+      name:
+        type: 'string'
+        description: 'Product name'
+      price:
+        type: 'number'
+        format: 'decimal'
+        description: 'Product price'
       id:
         type: 'integer'
         format: 'int64'
         description: 'Customer unique id'
     required:
       - 'name'
-      - 'email'
-      - 'phone'
-      - 'id'
+      - 'price'
+  Employee:
+    type: 'object'
+    properties:
+      name:
+        type: 'string'
+        description: 'Employee name'
+      position:
+        type: 'string'
+        description: 'Employee position'
+      id:
+        type: 'integer'
+        format: 'int64'
+        description: 'Unique employee id'
+    required:
+      - 'name'
+      - 'position'
+  Order:
+    type: 'object'
+    properties:
+      customer_id:
+        type: 'integer'
+        format: 'int64'
+        description: 'Customer id'
+      product_id:
+        type: 'integer'
+        format: 'int64'
+        description: 'Product id'
+      quantity:
+        type: 'integer'
+        format: 'int64'
+        description: 'Unique employee id'
+      total_price:
+        type: 'number'
+        format: 'decimal'
+        description: 'total price of order'
+      required:
+        - 'customer_id'
+        - 'product_id'
+        - 'quantity'
+        - 'total_price'
