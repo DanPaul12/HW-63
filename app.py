@@ -16,7 +16,7 @@ API_URL = '/static/swagger.yaml'
 swaggerui_blueprint = get_swaggerui_blueprint(
     SWAGGER_URL,
     API_URL,
-    config={'app_name': 'E-Commerce API'}
+    config={'app_name': 'Factory Application API'}
 )
 
 def create_app(config_name):
@@ -46,7 +46,7 @@ if __name__ == '__main__':
     app = create_app('DevelopmentConfig')
 
     blue_print_config(app)
-    configure_rate_limit()
+    #configure_rate_limit()
 
     with app.app_context():
         db.drop_all()

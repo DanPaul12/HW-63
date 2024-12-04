@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  title: 'E-Commerce API'
+  title: 'Factory Application API'
   description: 'api'
   version: '1.0.0'
 host: '127.0.0.1:5000'
@@ -16,10 +16,10 @@ securityDefinitions:
     name: Authorization
     in: header
 paths: 
-  /accounts/login:
+  /users/login:
     post:
       tags:
-        - accounts
+        - users
       summary: 'Login endpoint'
       description: 'Endpoint for user authentication'
       parameters:
@@ -34,6 +34,52 @@ paths:
           description: 'Login successful'
           schema: 
             $ref: '#/definitions/LoginResponse'
+        400:
+          description: 'Bad request'
+          schema:
+            $ref: '#/definitions/Error'
+          examples:
+            application/json:
+              value:
+                status: 'error'
+                message: 'Invalid credentials'
+  /customers:
+    get:
+      tags:
+        - customers
+      summary: 'Get All Customers'
+      description: 'Retrieve a list of all customers'
+      responses:
+        200:
+          description: 'Successful Response'
+          schema:
+            type: 'array'
+            items:
+              $ref: '#/definitions/Customer'
+          examples:
+            application/json:
+              value:
+                auth_token: 'eyJHbGc10i...'
+                message: 'Login successful'
+                status: 'success'
+        401:
+          description: 'Unauthorized'
+          schema:
+            $ref: '#/definitions/Error'
+          examples:
+            application/json:
+              value:
+                status: 'error'
+                message: 'token is missing | token expired | invalid token'
+        403:
+          description: 'Forbidden'
+          schema: 
+            $ref: '#/definitions/Error'
+          examples:
+            application/json:
+              value: 
+                status: 'error'
+                message: 'user does not have the required role'
 definitions: 
   LoginCredentials:
     type: 'object'
@@ -63,3 +109,36 @@ definitions:
     required:
       - 'auth_token'
       - 'message'
+  Error:
+    type: 'object'
+    properties:
+      status:
+        type: 'string'
+        description: 'Status of the error'
+      message:
+        type: 'string'
+        description: 'Description of the error'
+      required:
+        - 'status'
+        - 'message'
+  User:
+    type: 'object'
+    properties:
+      name:
+        type: 'string'
+        description: 'Customer name'
+      email:
+        type: 'string'
+        description: 'Customer email'
+      phone:
+        type: 'string'
+        description: 'Customer phoone number'
+      id:
+        type: 'integer'
+        format: 'int64'
+        description: 'Customer unique id'
+    required:
+      - 'name'
+      - 'email'
+      - 'phone'
+      - 'id'
